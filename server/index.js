@@ -18,7 +18,7 @@ app.use('/api/v1/posts', postRoutes);
 const user = process.env.USER;
 const password = process.env.PASSWORD;
 const dbname = process.env.DBNAME;
-const CONNECTION_URL = `mongodb+srv://${user}:${password}@memories.ztwmg.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+const CONNECTION_URL = `mongodb+srv://${user}:${password}@${dbname}.ztwmg.mongodb.net/${dbname}?retryWrites=true&w=majority`;
 
 const PORT = process.env.PORT || 5000;
 
