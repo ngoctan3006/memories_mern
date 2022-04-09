@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import FileBase64 from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
