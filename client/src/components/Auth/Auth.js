@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Avatar, Button, Container, Grid, Paper, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { Avatar, Button, Container, Grid, Paper, Typography } from '@material-ui/core';
 import GoogleLogin from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
@@ -11,6 +12,7 @@ import { AUTH } from '../../constants/actionTypes';
 const Auth = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
@@ -32,6 +34,7 @@ const Auth = () => {
                 type: AUTH,
                 payload: { result, token }
             });
+            history.push('/');
         } catch (error) {
             console.log(error);
         }
