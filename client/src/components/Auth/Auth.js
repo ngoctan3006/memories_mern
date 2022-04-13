@@ -8,6 +8,15 @@ import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
 import { AUTH } from '../../constants/actionTypes';
+import { signin, signup } from '../../actions/auth';
+
+const initFormData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    comfirmPassword: ''
+};
 
 const Auth = () => {
     const classes = useStyles();
@@ -16,10 +25,20 @@ const Auth = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
+    const [formData, setFormData] = useState(initFormData);
 
-    const handleSubmit = () => {};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (isSignUp) {
+            dispatch(signup(formData, history));
+        } else {
+            dispatch(signin(formData, history));
+        }
+    };
 
-    const handleChange = () => {};
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const handleShowPassword = () => setShowPassword((prev) => !prev);
 
@@ -86,10 +105,10 @@ const Auth = () => {
                         />
                         {isSignUp && (
                             <Input
-                                name='confirmPassword'
+                                name='comfirmPassword'
                                 label='Repeat Password'
                                 handleChange={handleChange}
-                                type='password'
+                                type={showPassword ? 'text' : 'password'}
                             />
                         )}
                     </Grid>
