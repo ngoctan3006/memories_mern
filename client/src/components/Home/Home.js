@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AppBar, Button, Container, Grid, Grow, Paper, TextField } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ChipInput from 'material-ui-chip-input';
 import Form from '../Form/Form';
 import Posts from '../Posts/Posts';
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
 import Pagination from '../Pagination';
 
@@ -22,10 +22,6 @@ const Home = () => {
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery');
 
-    useEffect(() => {
-        dispatch(getPosts());
-    }, [currentId, dispatch]);
-
     const handleKeyPress = (e) => {
         if (e.charCode === 13) {
             console.log(e);
@@ -37,8 +33,9 @@ const Home = () => {
     const handleDelete = (tag) => setTags(tags.filter((t) => t !== tag));
 
     const searchPost = () => {
-        if (search.trim()) {
+        if (search.trim() || tags.length) {
             dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+            history.push(`/posts/search?searchQuery=${search}&tags=${tags.join(',')}`);
         } else {
             history.push('/');
         }
@@ -87,7 +84,7 @@ const Home = () => {
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
                         <Paper className={classes.pagination} elevation={6}>
-                            <Pagination />
+                            <Pagination page={page} />
                         </Paper>
                     </Grid>
                 </Grid>

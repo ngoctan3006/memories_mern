@@ -5,6 +5,7 @@ import { CREATE, DELETE, FETCH_ALL, FETCH_BY_SEARCH, LIKE, UPDATE } from '../con
 export const getPosts = (page) => async (dispatch) => {
     try {
         const { data } = await api.fetchPosts(page);
+        console.log(data);
         dispatch({
             type: FETCH_ALL,
             payload: data
