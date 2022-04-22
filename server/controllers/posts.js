@@ -43,7 +43,7 @@ export const getPostsBySearch = async (req, res) => {
             $or: [{ title }, { tags: { $in: tags.split(',') } }]
         });
 
-        res.status(200).json(posts);
+        res.status(200).json({ data: posts });
     } catch (error) {
         res.status(404).json({
             message: error.message

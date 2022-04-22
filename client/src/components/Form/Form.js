@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import FileBase64 from 'react-file-base64';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import useStyles from './styles';
@@ -8,6 +9,7 @@ import { createPost, updatePost } from '../../actions/posts';
 
 const Form = ({ currentId, setCurrentId }) => {
     const classes = useStyles();
+    const history = useHistory();
     const [postData, setPostData] = useState({
         title: '',
         message: '',
@@ -17,7 +19,7 @@ const Form = ({ currentId, setCurrentId }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
 
     const post = useSelector((state) =>
-        currentId ? state.posts.find((post) => post._id === currentId) : null
+        currentId ? state.posts.posts.find((post) => post._id === currentId) : null
     );
     const dispatch = useDispatch();
 
@@ -32,7 +34,7 @@ const Form = ({ currentId, setCurrentId }) => {
             dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
             clear();
         } else {
-            dispatch(createPost({ ...postData, name: user?.result?.name }));
+            dispatch(createPost({ ...postData, name: user?.result?.name }, history));
             clear();
         }
     };
