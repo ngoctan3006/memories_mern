@@ -7,11 +7,11 @@ import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 
 const App = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('profile'));
 
     return (
         <BrowserRouter>
-            <Container maxWidth='lg'>
+            <Container maxWidth='xl'>
                 <Navbar />
                 <Switch>
                     <Route exact path='/' component={() => <Redirect to='/posts' />} />
