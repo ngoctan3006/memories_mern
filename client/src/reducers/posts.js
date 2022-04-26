@@ -7,7 +7,8 @@ import {
     END_LOADING,
     LIKE,
     UPDATE,
-    FETCH_POST
+    FETCH_POST,
+    COMMENT
 } from '../constants/actionTypes';
 
 const reducer = (state = { isLoading: true, posts: [] }, action) => {
@@ -43,6 +44,14 @@ const reducer = (state = { isLoading: true, posts: [] }, action) => {
                     post._id === action.payload._id ? action.payload : post
                 )
             };
+        case COMMENT:
+            return {
+                ...state,
+                posts: state.posts.map((post) =>
+                    post._id === action.payload._id ? action.payload : post
+                )
+            };
+
         case DELETE:
             return { ...state, posts: state.posts.filter((post) => post._id !== action.payload) };
         default:
