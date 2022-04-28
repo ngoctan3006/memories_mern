@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: 'http://localhost:5000/api/v1'
+    baseURL:
+        process.env.NODE_ENV !== 'production'
+            ? 'http://localhost:5000/api/v1'
+            : 'https://memories306.herokuapp.com/api/v1'
 });
 
 API.interceptors.request.use((req) => {
